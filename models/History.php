@@ -3,6 +3,9 @@
 namespace app\models;
 
 use app\models\traits\ObjectNameTrait;
+use app\widgets\HistoryList\helpers\HistoryListHelper;
+use DateTime;
+use Exception;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -48,6 +51,8 @@ class History extends ActiveRecord
 
     const EVENT_CUSTOMER_CHANGE_TYPE = 'customer_change_type';
     const EVENT_CUSTOMER_CHANGE_QUALITY = 'customer_change_quality';
+
+    public const EXPORT_HEADER_ROW = ['Date', 'User', 'Type', 'Event', 'Message'];
 
     /**
      * @inheritdoc
@@ -188,4 +193,24 @@ class History extends ActiveRecord
         $detail = json_decode($this->detail);
         return isset($detail->data->{$attribute}) ? $detail->data->{$attribute} : null;
     }
+
+    /**
+     * @return string[]
+     * @throws Exception
+     */
+    public function getExportData(): array
+    {
+        $createdAt = null === $this->getAttribute('ins_ts')
+            ? 'N/A'
+            : (new DateTime($this->getAttribute('ins_ts')))->format('M d, Y, g:i:s A');
+
+        return [
+            $createdAt,
+            $this->user?->getAttribute('username') ??  Yii::t('app', 'System'),
+            $this->getAttribute('object'),
+            $this->getEventText(),
+            strip_tags(HistoryListHelper::getBodyByModel($this)),
+        ];
+    }
+
 }

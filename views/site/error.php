@@ -10,6 +10,13 @@ use yii\helpers\Html;
 $this->title = $name;
 ?>
 <div class="site-error">
+    <?php if (Yii::$app->session->hasFlash('error')):
+        foreach (Yii::$app->session->getFlash('error') as $message): ?>
+        <div class="alert alert-danger">
+            <?= $message ?>
+        </div>
+        <?php endforeach;
+    endif; ?>
 
     <h1><?= Html::encode($this->title) ?></h1>
 
