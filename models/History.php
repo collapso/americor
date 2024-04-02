@@ -212,5 +212,4 @@ class History extends ActiveRecord
             strip_tags(HistoryListHelper::getBodyByModel($this)),
         ];
     }
-
 }

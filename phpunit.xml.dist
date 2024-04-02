@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         bootstrap="config/bootstrap.php"
+         beStrictAboutOutputDuringTests="false"
+         colors="true"
+         backupGlobals="false"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         cacheDirectory=".phpunit.cache"
+>
+  <testsuites>
+    <testsuite name="Americor Test Suite">
+      <directory>tests</directory>
+    </testsuite>
+  </testsuites>
+  <php>
+    <ini name="error_reporting" value="-1"/>
+    <server name="APP_ENV" value="test" force="true"/>
+    <server name="SHELL_VERBOSITY" value="-1"/>
+  </php>
+  <logging>
+    <testdoxText outputFile="php://stdout"/>
+  </logging>
+  <source>
+    <include>
+      <directory>components</directory>
+      <directory>controller</directory>
+      <directory>dataProviders</directory>
+      <directory>models</directory>
+    </include>
+  </source>
+</phpunit>

@@ -27,7 +27,9 @@
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
-        "yiisoft/yii2-gii": "^2.1.0"
+        "yiisoft/yii2-gii": "^2.1.0",
+        "phpunit/phpunit": "^10.0",
+        "phpspec/prophecy-phpunit": "^2.2"
     },
     "config": {
         "process-timeout": 1800,
@@ -68,5 +70,15 @@
             "type": "composer",
             "url": "https://asset-packagist.org"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "app\\tests\\": "tests/"
+        }
+    }
 }

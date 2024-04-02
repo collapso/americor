@@ -3,7 +3,6 @@ namespace app\dataProviders;
 
 use Generator;
 use yii\data\ActiveDataProvider;
-use yii\db\BatchQueryResult;
 
 class HistoryDataProvider extends ActiveDataProvider
 {
@@ -11,17 +10,12 @@ class HistoryDataProvider extends ActiveDataProvider
 
     public function getExportIterator(): Generator
     {
-        $batch = $this->prepareModels();
+        $query = clone $this->query;
+        $batch = $query->batch($this->batchSize);
         foreach ($batch as $models) {
             foreach ($models as $model) {
                 yield $model;
             }
         }
-    }
-
-    public function prepareModels(): BatchQueryResult
-    {
-        $query = clone $this->query;
-        return $query->batch($this->batchSize);
     }
 }
