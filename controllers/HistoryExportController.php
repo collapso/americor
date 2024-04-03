@@ -16,8 +16,7 @@ class HistoryExportController extends Controller
     public function actionExportData(string $exportType = 'csv'): Response
     {
         try {
-            $historyRepository = new HistoryRepository();
-            $exportData = $historyRepository->getExportDataGenerator();
+            $exportData = (new HistoryRepository())->getExportDataGenerator();
             $exportStrategy = ExportStrategyFactory::create($exportType);
             $stream = $exportStrategy->generateStream($exportData, History::EXPORT_HEADER_ROW);
 

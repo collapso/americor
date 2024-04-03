@@ -2,9 +2,6 @@
 
 namespace app\controllers;
 
-use app\components\HistorySearchService;
-use app\models\search\HistorySearch;
-use Yii;
 use yii\web\Controller;
 
 class SiteController extends Controller

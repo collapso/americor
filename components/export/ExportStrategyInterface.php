@@ -7,6 +7,5 @@ interface ExportStrategyInterface
 {
     public function generateStream(Generator $data);
     public function getMimetype(): string;
-
     public function generateFilename(): string;
 }
