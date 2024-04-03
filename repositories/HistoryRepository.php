@@ -25,7 +25,9 @@ class HistoryRepository implements ExportRepositoryInterface
             'task' => function ($query) {
                 $query->select(['task.id', 'task.title']);
             },
-            'call' => function ($query) {},
+            'call' => function ($query) {
+                $query->select(['call.id', 'call.direction', 'call.status']);
+            },
         ])->addOrderBy(['history.ins_ts' => SORT_DESC, 'history.id' => SORT_DESC]);
 
         $dataProvider = new HistoryDataProvider([

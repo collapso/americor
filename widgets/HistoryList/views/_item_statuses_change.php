@@ -1,6 +1,7 @@
 <?php
 
 use app\models\History;
+use app\widgets\DateTime\DateTime;
 
 /* @var $model History */
 /* @var $oldValue string */
@@ -15,7 +16,7 @@ use app\models\History;
             "<span class='badge badge-pill badge-success'>" . ($newValue ?? "<i>not set</i>") . "</span>";
         ?>
 
-        <span><?= \app\widgets\DateTime\DateTime::widget(['dateTime' => $model->ins_ts]) ?></span>
+        <span><?= DateTime::widget(['dateTime' => $model->ins_ts]) ?></span>
     </div>
 
 <?php if (isset($model->user)): ?>

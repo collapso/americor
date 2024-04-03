@@ -11,6 +11,7 @@ use app\models\User;
 
 trait ObjectNameTrait
 {
+    // in PHP 8.2 this should be a constant -> Immutable
     public static $classes = [
         Customer::class,
         Sms::class,

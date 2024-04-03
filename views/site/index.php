@@ -6,5 +6,5 @@ $this->title = 'Americor Test';
 ?>
 
 <div class="site-index">
-    <?= HistoryList::widget([]) ?>
+    <?= HistoryList::widget() ?>
 </div>

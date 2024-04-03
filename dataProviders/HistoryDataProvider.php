@@ -1,6 +1,7 @@
 <?php
 namespace app\dataProviders;
 
+use app\models\search\HistorySearch;
 use Generator;
 use yii\data\ActiveDataProvider;
 
