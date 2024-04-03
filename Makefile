@@ -22,6 +22,9 @@ db-migrate:
 
 up: build composer-install db-migrate
 
+phpunit:
+	docker exec -it americor-app phpunit
+
 help:
 	@echo "Available targets:"
 	@awk '/^[a-zA-Z0-9_-]+:/ { \
