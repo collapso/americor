@@ -63,9 +63,6 @@ class HistorySearch extends History
                 'user' => function ($query) {
                     $query->select(['user.id', 'user.username']);
                 },
-                'sms' => function ($query) {
-                    $query->select(['sms.id', 'sms.message']);
-                },
                 'task' => function ($query) {
                     $query->select(['task.id', 'task.title']);
                 },
@@ -75,6 +72,7 @@ class HistorySearch extends History
                 'fax' => function ($query) {
                     $query->select(['fax.id']);
                 },
+                'sms' => function ($query) {}
             ]);
 
         return $dataProvider;
