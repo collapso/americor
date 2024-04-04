@@ -50,3 +50,7 @@ Thumbs.db
 
 # composer vendor dir
 /vendor
+
+.phpunit.cache
+.phpunit.result.cache
+.phpunit.cache/test-results

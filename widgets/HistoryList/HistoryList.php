@@ -3,39 +3,34 @@
 namespace app\widgets\HistoryList;
 
 use app\models\search\HistorySearch;
-use app\widgets\Export\Export;
 use yii\base\Widget;
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
-use Yii;
 
 class HistoryList extends Widget
 {
-    /**
-     * @return string
-     */
-    public function run()
-    {
-        $model = new HistorySearch();
+    public array $queryParams = [];
 
-        return $this->render('main', [
-            'model' => $model,
-            'linkExport' => $this->getLinkExport(),
-            'dataProvider' => $model->search(Yii::$app->request->queryParams)
-        ]);
+    public function init(): void
+    {
+        parent::init();
+        // If there are no explicitly passed query parameters, use the request's query params
+        if (empty($this->queryParams)) {
+            $this->queryParams = Yii::$app->request->queryParams;
+        }
     }
 
-    /**
-     * @return string
-     */
-    private function getLinkExport()
+    public function run(): string
     {
-        $params = Yii::$app->getRequest()->getQueryParams();
-        $params = ArrayHelper::merge([
-            'exportType' => Export::FORMAT_CSV
-        ], $params);
-        $params[0] = 'site/export';
+        $params = ArrayHelper::merge(
+            [0 => 'history-export/export-data','exportType' => 'csv'],
+            Yii::$app->request->queryParams
+        );
 
-        return Url::to($params);
+        return $this->render('main', [
+            'linkExport' => Url::to($params),
+            'dataProvider' => (new HistorySearch())->search(Yii::$app->request->queryParams)
+        ]);
     }
 }

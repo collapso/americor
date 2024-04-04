@@ -16,7 +16,7 @@ class HistorySearch extends History
     /**
      * @inheritdoc
      */
-    public function rules()
+    public function rules(): array
     {
         return [];
     }
@@ -45,12 +45,8 @@ class HistorySearch extends History
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-        ]);
-
-        $dataProvider->setSort([
-            'defaultOrder' => [
-                'ins_ts' => SORT_DESC,
-                'id' => SORT_DESC
+            'sort' => [
+                'defaultOrder' => ['ins_ts' => SORT_DESC, 'id' => SORT_DESC]
             ],
         ]);
 
@@ -62,15 +58,22 @@ class HistorySearch extends History
             return $dataProvider;
         }
 
-        $query->addSelect('history.*');
-        $query->with([
-            'customer',
-            'user',
-            'sms',
-            'task',
-            'call',
-            'fax',
-        ]);
+        $query->select(['history.id', 'history.ins_ts', 'history.event', 'history.object', 'history.object_id', 'history.detail', 'history.user_id'])
+            ->with([
+                'user' => function ($query) {
+                    $query->select(['user.id', 'user.username']);
+                },
+                'task' => function ($query) {
+                    $query->select(['task.id', 'task.title']);
+                },
+                'call' => function ($query) {
+                    $query->select(['call.id', 'call.direction', 'call.status']);
+                },
+                'fax' => function ($query) {
+                    $query->select(['fax.id']);
+                },
+                'sms' => function ($query) {}
+            ]);
 
         return $dataProvider;
     }
